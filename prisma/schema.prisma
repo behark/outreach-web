@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model OutreachLead {
+  id              Int      @id @default(autoincrement())
+  leadKey         String   @unique @map("lead_key")
+  name            String
+  phone           String?
+  website         String?
+  category        String?
+  city            String?
+  rating          String?
+  reviews         String?
+  demoUrl         String?  @map("demo_url")
+  instagramUrl    String?  @map("instagram_url")
+  facebookUrl     String?  @map("facebook_url")
+  whatsappUrl     String?  @map("whatsapp_url")
+  googleMapsUrl   String?  @map("google_maps_url")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @default(now()) @updatedAt @map("updated_at")
+
+  history         OutreachStatusHistory[]
+
+  @@map("outreach_leads")
+}
+
+model OutreachStatusHistory {
+  id           Int      @id @default(autoincrement())
+  leadKey      String   @map("lead_key")
+  timestampUtc DateTime @map("timestamp_utc")
+  template     String?
+  language     String?
+  status       String
+  note         String?
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  lead         OutreachLead @relation(fields: [leadKey], references: [leadKey])
+
+  @@map("outreach_status_history")
+}
