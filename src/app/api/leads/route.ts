@@ -39,7 +39,11 @@ export async function GET(request: Request) {
 
     let filtered = items;
     if (status) {
-      filtered = filtered.filter((i: any) => i.last_status === status);
+      if (status === "uncontacted") {
+        filtered = filtered.filter((i: any) => i.last_status === "" || i.last_status === "prepared");
+      } else {
+        filtered = filtered.filter((i: any) => i.last_status === status);
+      }
     }
     if (search) {
       const q = search.toLowerCase();

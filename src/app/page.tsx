@@ -11,7 +11,7 @@ export default function OutreachDesk() {
   const [search, setSearch] = useState("");
   const [stage, setStage] = useState("initial");
   const [language, setLanguage] = useState("sq");
-  const [statusFilter, setStatusFilter] = useState("");
+  const [statusFilter, setStatusFilter] = useState("uncontacted");
   const [sort, setSort] = useState("score");
   const [loading, setLoading] = useState(true);
   const [note, setNote] = useState("");
@@ -151,7 +151,8 @@ export default function OutreachDesk() {
             <div>
               <label>Status</label>
               <select value={statusFilter} onChange={e => setStatusFilter(e.target.value)}>
-                <option value="">All</option>
+                <option value="uncontacted">Uncontacted (Fresh)</option>
+                <option value="">All History</option>
                 <option value="prepared">Prepared</option>
                 <option value="sent_by_user">Sent</option>
                 <option value="replied">Replied</option>
